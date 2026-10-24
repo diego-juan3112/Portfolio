@@ -1,48 +1,44 @@
 import { profile } from "@/content/profile";
-import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { ChatBox } from "./ChatBox";
 import { ContactForm } from "./ContactForm";
-import { FitAnalyzer } from "./FitAnalyzer";
 
-export function Contact({ lang, t }: { lang: Locale; t: Dictionary }) {
+export function Contact({ t }: { t: Dictionary }) {
+  const channels = [
+    { href: `mailto:${profile.email}`, label: profile.email },
+    { href: `tel:${profile.phone.replace(/\s/g, "")}`, label: profile.phone },
+    { href: profile.links.linkedin, label: "LinkedIn", external: true },
+    { href: profile.links.github, label: "GitHub", external: true },
+  ];
   return (
-    <section id="contact" className="scroll-mt-8 px-5 py-20">
-      <div className="mx-auto max-w-6xl">
-        <h2 className="font-display text-4xl uppercase sm:text-5xl">{t.contact.title}</h2>
-        <p className="mt-3 max-w-xl text-muted">{t.contact.intro}</p>
-
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
-          <ChatBox lang={lang} t={t.chat} />
-          <FitAnalyzer lang={lang} t={t.fit} />
-        </div>
-
-        <div className="mt-6 grid gap-6 rounded-3xl border border-border bg-surface p-6 lg:grid-cols-2">
-          <ContactForm t={t.contact} />
-          <ul className="space-y-3 self-center text-sm">
-            <li>
-              <a href={`mailto:${profile.email}`} className="hover:text-accent-via">
-                {profile.email}
-              </a>
-            </li>
-            <li>
-              <a href={`tel:${profile.phone.replace(/\s/g, "")}`} className="hover:text-accent-via">
-                {profile.phone}
-              </a>
-            </li>
-            <li className="text-muted">{profile.location}</li>
-            <li className="flex gap-4 pt-2 text-xs font-bold uppercase tracking-widest">
-              <a href={profile.links.github} target="_blank" rel="noopener noreferrer" className="hover:text-accent-via">
-                GitHub ↗
-              </a>
-              <a href={profile.links.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-accent-via">
-                LinkedIn ↗
-              </a>
-              <a href={profile.links.credly} target="_blank" rel="noopener noreferrer" className="hover:text-accent-via">
-                Credly ↗
-              </a>
-            </li>
+    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-4">
+      <div className="mx-auto grid w-full max-w-[90rem] gap-x-16 gap-y-12 px-5 py-24 sm:px-8 sm:py-36 lg:grid-cols-[1fr_1.15fr]">
+        <div className="min-w-0">
+          <h2 id="contact-title" className="display text-5xl sm:text-7xl" data-reveal>
+            {t.contact.title}
+          </h2>
+          <p className="mt-6 max-w-lg text-xl leading-snug" data-reveal style={{ "--i": 1 } as React.CSSProperties}>
+            {t.contact.intro}
+          </p>
+          <h3 className="mt-12 font-cond text-2xl font-bold" data-reveal>
+            {t.contact.direct}
+          </h3>
+          <ul className="mt-3 space-y-2 text-xl" data-reveal style={{ "--i": 1 } as React.CSSProperties}>
+            {channels.map((c) => (
+              <li key={c.href}>
+                <a
+                  href={c.href}
+                  className="link"
+                  {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  {c.label}
+                </a>
+              </li>
+            ))}
+            <li className="text-on-desk-soft">{profile.location}</li>
           </ul>
+        </div>
+        <div className="min-w-0 lg:pt-4" data-reveal style={{ "--i": 2 } as React.CSSProperties}>
+          <ContactForm t={t.contact} />
         </div>
       </div>
     </section>

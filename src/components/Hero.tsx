@@ -1,61 +1,61 @@
-import Image from "next/image";
+import { competencies, vuForEvidence } from "@/content/competencies";
 import { profile } from "@/content/profile";
 import type { Locale } from "@/i18n/config";
-import type { Dictionary } from "@/i18n/dictionaries";
+import { fill, type Dictionary } from "@/i18n/dictionaries";
+import { describeSource, type Source } from "@/lib/ai/sources";
+import { Bridge, type Channel } from "./Bridge";
 
 export function Hero({ lang, t }: { lang: Locale; t: Dictionary }) {
+  const channels: Channel[] = competencies.map((c) => ({
+    id: c.id,
+    label: c.label[lang],
+    vu: vuForEvidence(c.evidence.length),
+    evidenceLabel:
+      c.evidence.length === 1 ? t.hero.evidenceOne : fill(t.hero.evidenceMany, { n: c.evidence.length }),
+    sources: c.evidence.map((id) => describeSource(id, lang)).filter((s): s is Source => s !== null),
+  }));
+
+  const [first, ...rest] = profile.name.split(" ");
+  const lineOne = `${first} ${rest[0]}`;
+  const lineTwo = rest.slice(1).join(" ");
+
   return (
-    <section className="relative overflow-hidden px-5 pb-16 pt-28 sm:pt-32">
-      <div className="mx-auto max-w-6xl">
-        <div className="relative pb-20 sm:pb-0">
-          <h1
-            className="reveal font-display uppercase leading-[0.9] tracking-tight text-foreground/90"
-            style={{ fontSize: "clamp(3.2rem, 14vw, 11rem)" }}
-          >
-            <span className="block">{t.hero.hi}</span>
-            <span className="block gradient-text">{profile.firstName}</span>
-          </h1>
-
-          <div
-            className="pointer-events-none absolute right-0 top-[34%] z-10 w-[clamp(9rem,30vw,20rem)] sm:right-[10%] sm:top-[6%]"
-            style={{
-              maskImage: "radial-gradient(closest-side, #000 62%, transparent 100%)",
-              WebkitMaskImage: "radial-gradient(closest-side, #000 62%, transparent 100%)",
-            }}
-          >
-            <Image
-              src="/images/photo.png"
-              alt={t.hero.photoAlt}
-              width={800}
-              height={927}
-              priority
-              sizes="(max-width: 640px) 9rem, 20rem"
-              className="h-auto w-full"
-            />
-          </div>
-        </div>
-
-        <div className="mt-8 flex flex-col gap-8 sm:mt-14 sm:flex-row sm:items-end sm:justify-between">
-          <div className="max-w-sm">
-            <p className="font-mono text-xs uppercase tracking-widest text-muted">{profile.role[lang]}</p>
-            <p className="mt-3 text-base leading-relaxed text-foreground/85">{t.hero.sub}</p>
-            <p className="mt-2 font-mono text-xs text-muted">{profile.stackLine}</p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href="#contact"
-              className="gradient-border inline-flex items-center px-7 py-3 text-xs font-extrabold uppercase tracking-widest transition-transform hover:scale-105"
-            >
+    <section className="mx-auto w-full max-w-[90rem] px-5 pb-24 pt-10 sm:px-8 sm:pt-16">
+      <div className="grid items-end gap-x-12 gap-y-8 lg:grid-cols-[1.4fr_1fr]">
+        <h1 className="display lines" style={{ fontSize: "clamp(3.4rem, 9.5vw, 9.25rem)" }}>
+          <span className="line">
+            <span data-line style={{ "--i": 0 } as React.CSSProperties}>
+              {lineOne}
+            </span>
+          </span>
+          <span className="line">
+            <span data-line style={{ "--i": 1 } as React.CSSProperties}>
+              {lineTwo}
+            </span>
+          </span>
+        </h1>
+        <div className="max-w-xl lg:pb-3">
+          <p data-load style={{ "--d": "420ms" } as React.CSSProperties} className="text-xl leading-snug">
+            {t.hero.sub}
+          </p>
+          <div data-load style={{ "--d": "500ms" } as React.CSSProperties} className="mt-8 flex flex-wrap gap-3">
+            <a href="#measure" className="btn btn--red">
               {t.hero.cta}
             </a>
-            <a
-              href="#projects"
-              className="inline-flex items-center rounded-full border border-border px-7 py-3 text-xs font-bold uppercase tracking-widest text-muted transition-colors hover:text-foreground"
-            >
-              {t.hero.ctaProjects}
+            <a href="#projects" className="btn btn--quiet">
+              {t.hero.secondary}
             </a>
           </div>
         </div>
+      </div>
+
+      <div className="mt-14 sm:mt-20">
+        <Bridge
+          channels={channels}
+          title={t.hero.bridgeTitle}
+          note={t.hero.bridgeNote}
+          evidenceTitle={t.hero.evidenceTitle}
+        />
       </div>
     </section>
   );

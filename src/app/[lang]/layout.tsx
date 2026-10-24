@@ -1,15 +1,27 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { Anton, Inter, JetBrains_Mono } from "next/font/google";
+import { Barlow, Barlow_Condensed } from "next/font/google";
 import { hasLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import "../globals.css";
 
-const display = Anton({ weight: "400", subsets: ["latin"], variable: "--font-display", display: "swap" });
-const sans = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
+// Barlow: la rotulación de los equipos de estudio; la condensada para titulares y escalas
+const barlow = Barlow({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  variable: "--font-barlow",
+  display: "swap",
+});
+const barlowCond = Barlow_Condensed({
+  weight: ["600", "700"],
+  subsets: ["latin"],
+  variable: "--font-barlow-cond",
+  display: "swap",
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+export const viewport: Viewport = { themeColor: "#16130f" };
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -40,8 +52,12 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   if (!hasLocale(lang)) notFound();
 
   return (
-    <html lang={lang} className={`${display.variable} ${sans.variable} ${mono.variable} antialiased`}>
-      <body className="min-h-dvh flex flex-col">{children}</body>
+    <html lang={lang} className={`${barlow.variable} ${barlowCond.variable} antialiased`} suppressHydrationWarning>
+      <head>
+        {/* Activa los estados ocultos del movimiento solo cuando hay JS (ver globals.css) */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
+      <body className="flex min-h-dvh flex-col">{children}</body>
     </html>
   );
 }
