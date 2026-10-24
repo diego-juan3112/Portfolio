@@ -12,7 +12,7 @@ const es = {
     sub: "Construyo pipelines de datos, APIs y soluciones con IA. Ganador de 3 hackathones nacionales.",
     cta: "Contáctame",
     ctaProjects: "Ver proyectos",
-    avatarAlt: "Avatar 3D estilizado de Juan Diego",
+    photoAlt: "Foto de Juan Diego Henao Quintero",
   },
   about: { title: "Sobre mí", skills: "Habilidades", education: "Educación" },
   projects: {
@@ -82,7 +82,7 @@ const en: Dictionary = {
     sub: "I build data pipelines, APIs and AI-powered solutions. Winner of 3 national hackathons.",
     cta: "Contact me",
     ctaProjects: "View projects",
-    avatarAlt: "Stylized 3D avatar of Juan Diego",
+    photoAlt: "Photo of Juan Diego Henao Quintero",
   },
   about: { title: "About me", skills: "Skills", education: "Education" },
   projects: {

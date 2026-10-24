@@ -24,13 +24,13 @@ export function Hero({ lang, t }: { lang: Locale; t: Dictionary }) {
             }}
           >
             <Image
-              src="/images/avatar.png"
-              alt={t.hero.avatarAlt}
-              width={200}
-              height={200}
+              src="/images/photo.png"
+              alt={t.hero.photoAlt}
+              width={800}
+              height={927}
               priority
               sizes="(max-width: 640px) 9rem, 20rem"
-              className="h-auto w-full mix-blend-lighten"
+              className="h-auto w-full"
             />
           </div>
         </div>

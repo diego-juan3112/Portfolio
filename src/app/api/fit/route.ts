@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { ThinkingLevel } from "@google/genai";
 import { z } from "zod";
 import { AiNotConfiguredError, fitModel, getGemini } from "@/lib/ai/gemini";
 import { fitSystemPrompt } from "@/lib/ai/prompts";
@@ -22,7 +23,9 @@ export async function POST(request: Request) {
         systemInstruction: fitSystemPrompt(locale),
         responseMimeType: "application/json",
         responseJsonSchema: z.toJSONSchema(fitResultSchema),
-        maxOutputTokens: 2000,
+        // El límite incluye los tokens de razonamiento; un JSON truncado no pasaría la validación
+        maxOutputTokens: 4096,
+        thinkingConfig: { thinkingLevel: ThinkingLevel.LOW },
         temperature: 0.2,
       },
     });

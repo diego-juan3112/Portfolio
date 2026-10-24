@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { ThinkingLevel } from "@google/genai";
 import { AiNotConfiguredError, chatModel, getGemini } from "@/lib/ai/gemini";
 import { chatSystemPrompt } from "@/lib/ai/prompts";
 import { chatRequestSchema } from "@/lib/ai/schemas";
@@ -22,7 +23,9 @@ export async function POST(request: Request) {
       })),
       config: {
         systemInstruction: chatSystemPrompt(locale),
-        maxOutputTokens: 400,
+        // El límite incluye los tokens de razonamiento del modelo: con poco margen la respuesta sale cortada
+        maxOutputTokens: 1024,
+        thinkingConfig: { thinkingLevel: ThinkingLevel.LOW },
         temperature: 0.3,
       },
     });

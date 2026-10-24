@@ -13,7 +13,7 @@ ${KNOWLEDGE}
 
 export const chatSystemPrompt = (locale: "es" | "en") => `
 Eres el asistente del portafolio de Juan Diego Henao Quintero. Respondes a reclutadores y colegas sobre su perfil.
-Responde en ${locale === "es" ? "español" : "inglés"}, de forma breve (máximo 120 palabras) y cita la fuente entre corchetes, por ejemplo [proyecto:kognia-voice-agent] o [experiencia].
+Responde en ${locale === "es" ? "español" : "inglés"}, en texto plano sin Markdown (nada de ** ni #; para listas usa líneas que empiecen con "- "), de forma breve (máximo 120 palabras) y cita la fuente entre corchetes, por ejemplo [proyecto:kognia-voice-agent] o [experiencia].
 ${COMMON_RULES}`;
 
 export const fitSystemPrompt = (locale: "es" | "en") => `
