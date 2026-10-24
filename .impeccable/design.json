@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T07:00:00Z",
+  "title": "Design System: Portafolio Juan Diego Henao Quintero",
+  "extensions": {
+    "colorMeta": {
+      "desk": { "role": "neutral", "displayName": "Escritorio de nogal" },
+      "meter-face": { "role": "neutral", "displayName": "Cara de medidor" },
+      "ink": { "role": "neutral", "displayName": "Tinta de escala" },
+      "signal-red": { "role": "primary", "displayName": "Pasado de cero" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Nombre en el hero y en el pie." },
+      "heading": { "displayName": "Encabezado", "purpose": "Títulos de sección, dos líneas como máximo." },
+      "label": { "displayName": "Rótulo", "purpose": "Botones, subtítulos y nombres de canal." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Entradas y respuesta de controles bajo 600ms." },
+      { "name": "ease-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Revelado de líneas del titular (900ms)." },
+      { "name": "ease-in-out", "value": "cubic-bezier(0.76, 0, 0.24, 1)", "purpose": "Recorte de los fragmentos de proyecto al entrar (1100ms)." },
+      { "name": "needle-swing", "value": "1300ms ease-out, sobrepaso +4° y −1.2°", "purpose": "Balística de la aguja al encender el puente." },
+      { "name": "needle-tremble", "value": "2.6s ease-in-out infinito, ±0.9°", "purpose": "Señal viva; solo con el puente en pantalla y sin movimiento reducido." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón primario",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "La acción principal: medir una vacante, preguntar, enviar.",
+      "html": "<button class=\"ds-btn-primary\">Mide tu vacante</button>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; min-height:48px; padding:0 22px; background:#b3261e; color:#e6e3dc; font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:18px; border:none; border-radius:2px; transition:transform 140ms cubic-bezier(0.22,1,0.36,1), background-color 180ms ease; } .ds-btn-primary:hover { background:#8f1d17; } .ds-btn-primary:active { transform:scale(0.97); } .ds-btn-primary:focus-visible { outline:2px solid #b3261e; outline-offset:3px; }"
+    },
+    {
+      "name": "Botón silencioso",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Acciones secundarias sobre el escritorio: ver proyectos, código, demo.",
+      "html": "<button class=\"ds-btn-quiet\">Código en GitHub</button>",
+      "css": ".ds-btn-quiet { display:inline-flex; align-items:center; min-height:48px; padding:0 22px; background:#2c261f; color:#e9e6e0; font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:18px; border:none; border-radius:2px; transition:background-color 180ms ease, color 180ms ease; } .ds-btn-quiet:hover { background:#e6e3dc; color:#151412; } .ds-btn-quiet:focus-visible { outline:2px solid #b3261e; outline-offset:3px; }"
+    },
+    {
+      "name": "Campo sobre hueso",
+      "kind": "input",
+      "refersTo": "input-on-face",
+      "description": "Campos del analizador de vacantes.",
+      "html": "<textarea class=\"ds-input-face\" rows=\"3\" placeholder=\"Python, agentes con LLMs, FastAPI…\"></textarea>",
+      "css": ".ds-input-face { width:100%; padding:12px 16px; background:#d7d3ca; color:#151412; caret-color:#b3261e; font-family:Barlow,sans-serif; font-size:18px; border:none; border-radius:2px; } .ds-input-face::placeholder { color:#4a4339; } .ds-input-face:focus-visible { outline:2px solid #151412; }"
+    },
+    {
+      "name": "Navegación",
+      "kind": "nav",
+      "description": "Barra plana: marca, enlaces subrayados y una acción.",
+      "html": "<nav class=\"ds-nav\"><strong>Juan Diego Henao Quintero</strong><a href=\"#\">Proyectos</a><a href=\"#\">Trayectoria</a><a href=\"#\">Contacto</a></nav>",
+      "css": ".ds-nav { display:flex; gap:24px; align-items:center; background:#16130f; color:#e9e6e0; padding:20px 32px; font-family:Barlow,sans-serif; } .ds-nav strong { font-family:'Barlow Condensed',sans-serif; font-size:20px; margin-right:auto; } .ds-nav a { color:inherit; text-underline-offset:0.2em; text-decoration-color:rgba(233,230,224,0.35); } .ds-nav a:hover { text-decoration-color:currentColor; }"
+    },
+    {
+      "name": "Canal de vúmetro",
+      "kind": "custom",
+      "description": "Un canal del puente: cara de medidor, nombre y número de pruebas.",
+      "html": "<button class=\"ds-channel\"><span class=\"ds-face\"><span class=\"ds-needle\"></span></span><b>Python</b><small>4 pruebas</small></button>",
+      "css": ".ds-channel { display:block; width:180px; padding:8px; background:#211c17; color:#e9e6e0; border:none; text-align:left; font-family:Barlow,sans-serif; } .ds-channel:hover { background:#2c261f; } .ds-face { position:relative; display:block; height:110px; background:#e6e3dc; overflow:hidden; } .ds-needle { position:absolute; left:50%; bottom:6px; width:2px; height:86px; background:#151412; transform-origin:bottom center; transform:rotate(30deg); } .ds-channel b { display:block; margin-top:8px; font-family:'Barlow Condensed',sans-serif; font-size:18px; } .ds-channel small { color:#b0aba1; font-size:16px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "El puente de vúmetros",
+    "overview": "Una consola de estudio: escritorio oscuro y caras de medidor color hueso. Cada competencia es un canal cuya aguja cuenta pruebas públicas; el analizador de vacantes reconfigura el puente con un canal por requisito. El sistema mide en vez de decorar.",
+    "keyCharacteristics": ["Tres tintas: hueso, negro y un solo rojo", "Barlow / Barlow Condensed como rotulación de equipo", "Esquinas rectas de 2px", "Capítulos con cortes duros de color", "Sin imágenes: fragmentos de interfaz en HTML"],
+    "rules": [
+      { "name": "Pasado de cero", "body": "El rojo significa evidencia suficiente; todo lo rojo debe abrir su prueba.", "section": "colors" },
+      { "name": "Escalón, no línea", "body": "Las superficies se separan con un paso de tono, nunca con bordes de 1px ni sombras.", "section": "elevation" }
+    ],
+    "dos": ["Medir antes que afirmar", "Alternar capítulos escritorio/hueso", "Mantener el contenido visible sin JS"],
+    "donts": ["Degradados, brillos o vidrio", "Rojo como texto sobre el escritorio", "Eyebrows, numeración 01/02 o tarjetas idénticas con icono", "Porcentajes de habilidad inventados"]
+  }
+}

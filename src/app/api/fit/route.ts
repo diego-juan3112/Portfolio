@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { ThinkingLevel } from "@google/genai";
 import { z } from "zod";
-import { AiNotConfiguredError, fitModel, getGemini } from "@/lib/ai/gemini";
+import { AiNotConfiguredError, fitModels, getGemini, withFallback } from "@/lib/ai/gemini";
 import { fitSystemPrompt } from "@/lib/ai/prompts";
 import { fitRequestSchema, fitResultSchema } from "@/lib/ai/schemas";
 import { clientIp, rateLimit } from "@/lib/ratelimit";
+
+// Tiempo máximo por modelo antes de pasar al siguiente de la cadena
+const FIT_TIMEOUT_MS = 15_000;
 
 export async function POST(request: Request) {
   if (!rateLimit(`fit:${clientIp(request)}`, 5, 10 * 60_000)) {
@@ -16,19 +19,22 @@ export async function POST(request: Request) {
   const { locale, criteria } = parsed.data;
 
   try {
-    const response = await getGemini().models.generateContent({
-      model: fitModel(),
-      contents: `<criterios_de_la_vacante>\n${criteria}\n</criterios_de_la_vacante>`,
-      config: {
-        systemInstruction: fitSystemPrompt(locale),
-        responseMimeType: "application/json",
-        responseJsonSchema: z.toJSONSchema(fitResultSchema),
-        // El límite incluye los tokens de razonamiento; un JSON truncado no pasaría la validación
-        maxOutputTokens: 4096,
-        thinkingConfig: { thinkingLevel: ThinkingLevel.LOW },
-        temperature: 0.2,
-      },
-    });
+    const response = await withFallback(fitModels(), FIT_TIMEOUT_MS, (model, signal) =>
+      getGemini().models.generateContent({
+        model,
+        contents: `<criterios_de_la_vacante>\n${criteria}\n</criterios_de_la_vacante>`,
+        config: {
+          systemInstruction: fitSystemPrompt(locale),
+          responseMimeType: "application/json",
+          responseJsonSchema: z.toJSONSchema(fitResultSchema),
+          // El límite incluye los tokens de razonamiento; un JSON truncado no pasaría la validación
+          maxOutputTokens: 4096,
+          thinkingConfig: { thinkingLevel: ThinkingLevel.LOW },
+          temperature: 0.2,
+          abortSignal: signal,
+        },
+      }),
+    );
     const result = fitResultSchema.safeParse(JSON.parse(response.text ?? "{}"));
     if (!result.success) {
       return NextResponse.json({ error: "bad_model_output" }, { status: 502 });

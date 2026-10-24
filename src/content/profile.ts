@@ -65,7 +65,7 @@ export const skillGroups: {
 ];
 
 export const experience = {
-  title: "Java Engineer — Sistema Biblioteca Rogelio Salmona",
+  title: "Java Engineer en el Sistema Biblioteca Rogelio Salmona",
   org: "Universidad de Caldas",
   duration: { es: "6 meses", en: "6 months" } satisfies Localized<string>,
   bullets: {
@@ -91,7 +91,7 @@ export const achievements: {
   {
     id: "talento-tech-2023",
     date: "10/2023",
-    title: { es: "Ganador — Talento Tech", en: "Winner — Talento Tech" },
+    title: { es: "Ganador de Talento Tech", en: "Winner of Talento Tech" },
     detail: {
       es: "Solución de automatización y procesamiento de datos entregada en menos de 48 horas.",
       en: "Automation and data-processing solution delivered in under 48 hours.",
@@ -100,7 +100,7 @@ export const achievements: {
   {
     id: "talento-tech-2025",
     date: "07/2025",
-    title: { es: "Ganador — Talento Tech", en: "Winner — Talento Tech" },
+    title: { es: "Ganador de Talento Tech", en: "Winner of Talento Tech" },
     detail: {
       es: "Segunda victoria: automatización y procesamiento de datos en menos de 48 horas.",
       en: "Second win: automation and data processing in under 48 hours.",
@@ -109,7 +109,7 @@ export const achievements: {
   {
     id: "colombia-5-0",
     date: "03/2026",
-    title: { es: "Ganador — Colombia 5.0 (MinTIC)", en: "Winner — Colombia 5.0 (MinTIC)" },
+    title: { es: "Ganador de Colombia 5.0 (MinTIC)", en: "Winner of Colombia 5.0 (MinTIC)" },
     detail: {
       es: "Solución basada en IA e integración de APIs desarrollada bajo presión de tiempo.",
       en: "AI and API-integration solution built under time pressure.",
@@ -118,6 +118,6 @@ export const achievements: {
 ];
 
 export const certifications = [
-  { id: "aws-academy", name: "AWS Academy Graduate — Cloud Foundations", date: "Sep 2025" },
-  { id: "aws-educate", name: "AWS Educate — Introduction to Cloud 101", date: "Mar 2026" },
+  { id: "aws-academy", name: "AWS Academy Graduate: Cloud Foundations", date: "Sep 2025", when: "09/2025" },
+  { id: "aws-educate", name: "AWS Educate: Introduction to Cloud 101", date: "Mar 2026", when: "03/2026" },
 ];

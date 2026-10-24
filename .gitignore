@@ -40,3 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 !.env.example
+
+# Artefactos de trabajo de las skills de diseño (capturas, rondas de decisión)
+.taste-skill/
+.impeccable/review/
+.impeccable/questions/
