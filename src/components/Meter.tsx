@@ -28,9 +28,13 @@ export function angleFor(vu: number): number {
   return SCALE.at(-1)![1];
 }
 
+// Redondeo a centésimas: Math.sin/Math.cos pueden diferir en el último decimal entre el motor JS del
+// servidor (Node) y el del navegador, y eso rompe la hidratación de React. A esta escala 0.01 es invisible.
+const round = (n: number) => Math.round(n * 100) / 100;
+
 function point(angle: number, r: number) {
   const rad = (angle * Math.PI) / 180;
-  return { x: PIVOT.x + r * Math.sin(rad), y: PIVOT.y - r * Math.cos(rad) };
+  return { x: round(PIVOT.x + r * Math.sin(rad)), y: round(PIVOT.y - r * Math.cos(rad)) };
 }
 
 function arc(from: number, to: number, r: number) {
