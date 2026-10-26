@@ -1,18 +1,23 @@
-import { competencies, vuForEvidence } from "@/content/competencies";
+import { competencies, competencyGroups, vuForEvidence, type Competency } from "@/content/competencies";
 import { profile } from "@/content/profile";
 import type { Locale } from "@/i18n/config";
 import { fill, type Dictionary } from "@/i18n/dictionaries";
 import { describeSource, type Source } from "@/lib/ai/sources";
-import { Bridge, type Channel } from "./Bridge";
+import { Bridge, type Channel, type ChannelGroup } from "./Bridge";
 
 export function Hero({ lang, t }: { lang: Locale; t: Dictionary }) {
-  const channels: Channel[] = competencies.map((c) => ({
+  const toChannel = (c: Competency): Channel => ({
     id: c.id,
     label: c.label[lang],
     vu: vuForEvidence(c.evidence.length),
     evidenceLabel:
       c.evidence.length === 1 ? t.hero.evidenceOne : fill(t.hero.evidenceMany, { n: c.evidence.length }),
     sources: c.evidence.map((id) => describeSource(id, lang)).filter((s): s is Source => s !== null),
+  });
+  const groups: ChannelGroup[] = competencyGroups.map((g) => ({
+    id: g.id,
+    label: g.label[lang],
+    channels: competencies.filter((c) => c.group === g.id).map(toChannel),
   }));
 
   const [first, ...rest] = profile.name.split(" ");
@@ -51,7 +56,7 @@ export function Hero({ lang, t }: { lang: Locale; t: Dictionary }) {
 
       <div className="mt-14 sm:mt-20">
         <Bridge
-          channels={channels}
+          groups={groups}
           title={t.hero.bridgeTitle}
           note={t.hero.bridgeNote}
           evidenceTitle={t.hero.evidenceTitle}
