@@ -25,6 +25,20 @@ Todo el contenido vive en `src/content` (perfil, habilidades, logros, proyectos)
 
 Sin `GEMINI_API_KEY` o `RESEND_API_KEY` los endpoints responden 503 y la interfaz muestra un mensaje.
 
-## Despliegue
+## Imágenes de los proyectos (carrusel)
 
-Importar el repo en Vercel, definir las variables de `.env.example` y desplegar desde `main`.
+Cada proyecto muestra un carrusel: primero su fragmento de interfaz y después las capturas que pongas en
+`public/projects/<slug>/` (`kognia-voice-agent`, `alerta-ciudadana`, `tactical-grid`, `san-jose-cuadernillos`).
+
+- Formatos: `.webp` (recomendado), `.avif`, `.png`, `.jpg`. Proporción ideal 16:10, unos 1600 × 1000 px.
+- El orden sigue el nombre del archivo: usa prefijos `01-`, `02-`…
+- El texto alternativo sale del nombre: `02-panel-de-consultas.webp` → «Kognia Voice Agent: Panel de consultas».
+- Las carpetas se leen al compilar: tras añadir imágenes, haz commit y push (el despliegue vuelve a compilar).
+
+## Despliegue en Vercel
+
+1. Cada push a `main` despliega a producción; cada PR genera una vista previa.
+2. Variables en **Settings → Environment Variables** (ver `.env.example`). `NEXT_PUBLIC_SITE_URL` se fija en build:
+   si cambia, hay que redesplegar. Si no está definida se usa el dominio de producción de Vercel.
+3. Dominio propio: **Settings → Domains**, añade el dominio y crea en tu registrador los registros DNS que Vercel
+   indique. Vercel emite el certificado TLS solo. Luego pon `NEXT_PUBLIC_SITE_URL=https://tu-dominio` y redespliega.

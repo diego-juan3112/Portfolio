@@ -11,18 +11,24 @@ export type Channel = {
   sources: { id: string; label: string; href: string }[];
 };
 
+export type ChannelGroup = { id: string; label: string; channels: Channel[] };
+
 type Props = {
-  channels: Channel[];
+  groups: ChannelGroup[];
   title: string;
   note: string;
   evidenceTitle: string; // plantilla con {label}
 };
 
-/** Fila de vúmetros. Las agujas suben juntas al cargar; un canal abierto muestra sus pruebas. */
-export function Bridge({ channels, title, note, evidenceTitle }: Props) {
+/**
+ * Puente de vúmetros en grupos de cuatro canales: una fila de medidores por grupo en tableta,
+ * los dos grupos lado a lado en escritorio. Las agujas suben juntas al cargar; un canal abierto
+ * muestra sus pruebas debajo del puente.
+ */
+export function Bridge({ groups, title, note, evidenceTitle }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<string | null>(null);
-  const selected = channels.find((c) => c.id === open);
+  const selected = groups.flatMap((g) => g.channels).find((c) => c.id === open);
 
   useEffect(() => {
     const el = ref.current;
@@ -40,25 +46,34 @@ export function Bridge({ channels, title, note, evidenceTitle }: Props) {
   return (
     <div ref={ref} className="bridge">
       <h2 className="sr-only">{title}</h2>
-      <ul className="grid grid-cols-2 gap-px bg-desk-3 sm:grid-cols-4 xl:grid-cols-8">
-        {channels.map((c, i) => (
-          <li key={c.id} className="bg-desk-2">
-            <button
-              type="button"
-              aria-expanded={open === c.id}
-              aria-controls="bridge-evidence"
-              onClick={() => setOpen(open === c.id ? null : c.id)}
-              className="group block w-full p-2 text-left transition-colors duration-200 hover:bg-desk-3 aria-expanded:bg-face aria-expanded:text-ink"
-            >
-              <Meter vu={c.vu} delay={i * 45} />
-              <span className="mt-2 block px-1 font-cond text-lg font-semibold leading-tight">{c.label}</span>
-              <span className="block px-1 pb-1 text-base text-on-desk-soft group-aria-expanded:text-ink-soft">
-                {c.evidenceLabel}
-              </span>
-            </button>
-          </li>
+      <div className="grid gap-x-px gap-y-8 xl:grid-cols-2">
+        {groups.map((g, gi) => (
+          <section key={g.id} aria-labelledby={`bridge-${g.id}`}>
+            <h3 id={`bridge-${g.id}`} className="mb-3 font-cond text-xl font-semibold text-on-desk-soft">
+              {g.label}
+            </h3>
+            <ul className="grid grid-cols-2 gap-px bg-desk-3 sm:grid-cols-4">
+              {g.channels.map((c, i) => (
+                <li key={c.id} className="bg-desk-2">
+                  <button
+                    type="button"
+                    aria-expanded={open === c.id}
+                    aria-controls="bridge-evidence"
+                    onClick={() => setOpen(open === c.id ? null : c.id)}
+                    className="group flex h-full w-full flex-col justify-start p-2 text-left transition-colors duration-200 hover:bg-desk-3 aria-expanded:bg-face aria-expanded:text-ink"
+                  >
+                    <Meter vu={c.vu} delay={(gi * g.channels.length + i) * 45} />
+                    <span className="mt-2 block px-1 font-cond text-lg font-semibold leading-tight">{c.label}</span>
+                    <span className="block px-1 pb-1 text-base text-on-desk-soft group-aria-expanded:text-ink-soft">
+                      {c.evidenceLabel}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
         ))}
-      </ul>
+      </div>
 
       <div id="bridge-evidence" aria-live="polite" className="min-h-14">
         {selected ? (

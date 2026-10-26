@@ -260,6 +260,42 @@ a {
   }
 }
 
+/* ---------- Carrusel de proyecto ---------- */
+.carousel__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  cursor: grab;
+}
+.carousel__track::-webkit-scrollbar {
+  display: none;
+}
+.carousel__track[data-dragging] {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+.carousel__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.carousel__frame {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: #0e0d0b;
+  overflow: clip;
+}
+.carousel__frame img {
+  pointer-events: none;
+}
+
 /* ---------- Movimiento de página ---------- */
 .lines .line {
   display: block;

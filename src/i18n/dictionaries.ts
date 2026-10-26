@@ -54,6 +54,7 @@ const es = {
     repo: "Código en GitHub",
     demo: "Demo en vivo",
     illustrative: "Datos de ejemplo",
+    carousel: { previous: "Imagen anterior", next: "Imagen siguiente", count: "{i} de {n}", region: "Capturas" },
   },
   statement:
     "Si el dato no está en la fuente, el sistema lo dice. Así construí el agente de Kognia y así responde este asistente.",
@@ -161,6 +162,7 @@ const en: Dictionary = {
     repo: "Code on GitHub",
     demo: "Live demo",
     illustrative: "Sample data",
+    carousel: { previous: "Previous image", next: "Next image", count: "{i} of {n}", region: "Screenshots" },
   },
   statement:
     "If the data isn't in the source, the system says so. That's how I built the Kognia agent and how this assistant answers.",

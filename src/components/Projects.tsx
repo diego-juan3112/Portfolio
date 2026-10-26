@@ -1,7 +1,9 @@
 import { projects } from "@/content/projects";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { projectImages } from "@/lib/projectMedia";
 import { ProjectFragment } from "./Fragments";
+import { ProjectCarousel } from "./ProjectCarousel";
 
 export function Projects({ lang, t }: { lang: Locale; t: Dictionary }) {
   return (
@@ -48,7 +50,9 @@ export function Projects({ lang, t }: { lang: Locale; t: Dictionary }) {
                 </div>
               </div>
               <div data-wipe className="min-w-0">
-                <ProjectFragment slug={p.slug} lang={lang} sample={t.projects.illustrative} />
+                <ProjectCarousel title={p.title} images={projectImages(p.slug, p.title)} labels={t.projects.carousel}>
+                  <ProjectFragment slug={p.slug} lang={lang} sample={t.projects.illustrative} />
+                </ProjectCarousel>
               </div>
             </li>
           ))}

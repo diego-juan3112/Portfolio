@@ -19,7 +19,11 @@ const barlowCond = Barlow_Condensed({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+// Se evalúa en build (las páginas son estáticas): define la URL antes de compilar.
+// En Vercel, si no hay dominio propio configurado, se usa el dominio de producción del proyecto.
+const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || (vercelUrl ? `https://${vercelUrl}` : "http://localhost:3000");
 
 export const viewport: Viewport = { themeColor: "#16130f" };
 
