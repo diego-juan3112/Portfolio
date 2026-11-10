@@ -1,21 +1,21 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { Barlow, Barlow_Condensed } from "next/font/google";
+import { Barlow, Bricolage_Grotesque } from "next/font/google";
 import { hasLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import "../globals.css";
 
-// Barlow: la rotulación de los equipos de estudio; la condensada para titulares y escalas
+// Bricolage Grotesque: titulares con carácter retro; Barlow: texto, legible y sobrio
 const barlow = Barlow({
-  weight: ["400", "500", "600"],
+  weight: ["400", "600"],
   subsets: ["latin"],
   variable: "--font-barlow",
   display: "swap",
 });
-const barlowCond = Barlow_Condensed({
-  weight: ["600", "700"],
+const bricolage = Bricolage_Grotesque({
+  weight: ["700", "800"],
   subsets: ["latin"],
-  variable: "--font-barlow-cond",
+  variable: "--font-bricolage",
   display: "swap",
 });
 
@@ -25,7 +25,7 @@ const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || (vercelUrl ? `https://${vercelUrl}` : "http://localhost:3000");
 
-export const viewport: Viewport = { themeColor: "#16130f" };
+export const viewport: Viewport = { themeColor: "#1b1a19" };
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -56,11 +56,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   if (!hasLocale(lang)) notFound();
 
   return (
-    <html lang={lang} className={`${barlow.variable} ${barlowCond.variable} antialiased`} suppressHydrationWarning>
-      <head>
-        {/* Activa los estados ocultos del movimiento solo cuando hay JS (ver globals.css) */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-      </head>
+    <html lang={lang} className={`${barlow.variable} ${bricolage.variable} antialiased`} data-scroll-behavior="smooth">
       <body className="flex min-h-dvh flex-col">{children}</body>
     </html>
   );

@@ -22,7 +22,7 @@ function AnswerBody({ text }: { text: string }) {
     <div className="space-y-3">
       {blocks.map((b, i) =>
         b.list ? (
-          <ul key={i} className="list-disc space-y-1 pl-5 marker:text-red">
+          <ul key={i} className="list-disc space-y-1 pl-5 marker:text-orange">
             {b.lines.map((l) => (
               <li key={l}>{l}</li>
             ))}
@@ -87,8 +87,8 @@ export function Assistant({ lang, t }: { lang: Locale; t: Dictionary["assistant"
   }
 
   return (
-    <section id="assistant" aria-labelledby="assistant-title" className="on-face scroll-mt-4">
-      <div className="mx-auto grid w-full max-w-[90rem] gap-x-16 gap-y-10 px-5 py-24 sm:px-8 sm:py-36 lg:grid-cols-[1fr_1.15fr]">
+    <section id="assistant" aria-labelledby="assistant-title" className="wash-slate">
+      <div className="mx-auto grid w-full max-w-[90rem] gap-x-16 gap-y-10 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-[1fr_1.15fr]">
         <div className="min-w-0">
           <h2 id="assistant-title" className="display text-5xl sm:text-7xl" data-reveal>
             {t.title}
@@ -112,11 +112,11 @@ export function Assistant({ lang, t }: { lang: Locale; t: Dictionary["assistant"
           </ul>
         </div>
 
-        <div className="flex min-w-0 flex-col bg-ink text-on-desk lg:min-h-[28rem]" data-reveal style={{ "--i": 1 } as React.CSSProperties}>
+        <div className="flex min-w-0 flex-col overflow-clip rounded-2xl bg-carbon-2 text-cream ring-1 ring-cream/10 lg:min-h-[28rem]" data-reveal style={{ "--i": 1 } as React.CSSProperties}>
           <div ref={logRef} className="max-h-[32rem] flex-1 space-y-6 overflow-y-auto p-5 sm:p-6" aria-live="polite">
             {messages.length === 0 && (
               <div>
-                <p className="text-base text-on-desk-soft">{t.bot}</p>
+                <p className="text-base text-cream-soft">{t.bot}</p>
                 <p className="text-lg">{t.greeting}</p>
               </div>
             )}
@@ -124,7 +124,7 @@ export function Assistant({ lang, t }: { lang: Locale; t: Dictionary["assistant"
               if (m.role === "user") {
                 return (
                   <div key={i}>
-                    <p className="text-base text-on-desk-soft">{t.you}</p>
+                    <p className="text-base text-cream-soft">{t.you}</p>
                     <p className="text-lg font-semibold">{m.content}</p>
                   </div>
                 );
@@ -133,17 +133,17 @@ export function Assistant({ lang, t }: { lang: Locale; t: Dictionary["assistant"
               const sources = sourceIds.map((id) => describeSource(id, lang)).filter((s): s is Source => s !== null);
               return (
                 <div key={i}>
-                  <p className="text-base text-on-desk-soft">{t.bot}</p>
+                  <p className="text-base text-cream-soft">{t.bot}</p>
                   {body ? (
                     <div className="text-lg">
                       <AnswerBody text={body} />
                     </div>
                   ) : (
-                    <p className="text-lg text-on-desk-soft">{t.thinking}</p>
+                    <p className="text-lg text-cream-soft">{t.thinking}</p>
                   )}
                   {sources.length > 0 && (
-                    <div className="mt-4 bg-desk-2 px-4 py-3">
-                      <p className="text-base text-on-desk-soft">{t.sources}</p>
+                    <div className="mt-4 bg-carbon-2 px-4 py-3">
+                      <p className="text-base text-cream-soft">{t.sources}</p>
                       <ul className="mt-1 flex flex-wrap gap-x-5 gap-y-1">
                         {sources.map((s) => (
                           <li key={s.id}>
@@ -159,7 +159,7 @@ export function Assistant({ lang, t }: { lang: Locale; t: Dictionary["assistant"
               );
             })}
             {error && (
-              <p role="alert" className="text-lg text-face">
+              <p role="alert" className="text-lg text-cream">
                 {error}
               </p>
             )}
@@ -170,7 +170,7 @@ export function Assistant({ lang, t }: { lang: Locale; t: Dictionary["assistant"
               e.preventDefault();
               void ask(input);
             }}
-            className="flex gap-2 bg-desk-2 p-3"
+            className="flex gap-2 bg-carbon-2 p-3"
           >
             <label htmlFor="assistant-input" className="sr-only">
               {t.label}
@@ -181,9 +181,9 @@ export function Assistant({ lang, t }: { lang: Locale; t: Dictionary["assistant"
               onChange={(e) => setInput(e.target.value)}
               maxLength={1000}
               placeholder={t.placeholder}
-              className="min-w-0 flex-1 rounded-[2px] bg-desk-3 px-4 text-lg text-on-desk caret-red outline-none placeholder:text-on-desk-soft focus-visible:outline-2 focus-visible:outline-red"
+              className="min-w-0 flex-1 rounded-full bg-carbon-3 px-5 text-lg text-cream caret-orange outline-none placeholder:text-cream-soft focus-visible:outline-2 focus-visible:outline-orange"
             />
-            <button type="submit" disabled={loading} className="btn btn--red">
+            <button type="submit" disabled={loading} className="btn btn--accent">
               {t.send}
             </button>
           </form>

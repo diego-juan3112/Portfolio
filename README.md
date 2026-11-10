@@ -35,6 +35,12 @@ Cada proyecto muestra un carrusel: primero su fragmento de interfaz y después l
 - El texto alternativo sale del nombre: `02-panel-de-consultas.webp` → «Kognia Voice Agent: Panel de consultas».
 - Las carpetas se leen al compilar: tras añadir imágenes, haz commit y push (el despliegue vuelve a compilar).
 
+## Foto de perfil
+
+Pon tu foto en `public/images/profile/` (cualquier nombre; `.webp`, `.jpg`, `.png` o `.avif`, idealmente vertical 4:5,
+unos 1000 × 1250 px). La sección «Sobre mí» la muestra en un arco con filtro duotono de la paleta; sin foto se ve el
+espacio reservado. Se lee al compilar: haz commit y push para publicarla.
+
 ## Despliegue en Vercel
 
 1. Cada push a `main` despliega a producción; cada PR genera una vista previa.

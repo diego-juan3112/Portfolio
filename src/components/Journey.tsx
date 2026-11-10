@@ -22,55 +22,55 @@ export function Journey({ lang, t }: { lang: Locale; t: Dictionary }) {
   ].sort((a, b) => sortKey(a.when).localeCompare(sortKey(b.when)));
 
   return (
-    <section id="journey" aria-labelledby="journey-title" className="scroll-mt-4 bg-desk-2">
-      <div className="mx-auto grid w-full max-w-[90rem] gap-x-16 gap-y-14 px-5 py-24 sm:px-8 sm:py-36 lg:grid-cols-[1fr_1.15fr]">
+    <section id="journey" aria-labelledby="journey-title">
+      <div className="mx-auto grid w-full max-w-[90rem] gap-x-16 gap-y-14 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-[1fr_1.15fr]">
         <div className="min-w-0">
           <h2 id="journey-title" className="display text-5xl sm:text-7xl" data-reveal>
             {t.journey.title}
           </h2>
 
-          <h3 className="mt-12 font-cond text-2xl font-bold" data-reveal>
+          <h3 className="mt-12 font-display text-2xl font-bold" data-reveal>
             {t.journey.experience}
           </h3>
           <div className="mt-3" data-reveal style={{ "--i": 1 } as React.CSSProperties}>
             <p className="text-xl font-semibold">{experience.title}</p>
-            <p className="text-base text-on-desk-soft">
+            <p className="text-base text-cream-soft">
               {experience.org} · {experience.duration[lang]}
             </p>
-            <ul className="mt-4 max-w-xl list-disc space-y-2 pl-5 text-lg marker:text-red">
+            <ul className="mt-4 max-w-xl list-disc space-y-2 pl-5 text-lg marker:text-orange">
               {experience.bullets[lang].map((b) => (
                 <li key={b}>{b}</li>
               ))}
             </ul>
           </div>
 
-          <h3 className="mt-12 font-cond text-2xl font-bold" data-reveal>
+          <h3 className="mt-12 font-display text-2xl font-bold" data-reveal>
             {t.journey.education}
           </h3>
           <p className="mt-3 max-w-xl text-lg" data-reveal style={{ "--i": 1 } as React.CSSProperties}>
             {profile.education[lang]}
           </p>
-          <p className="mt-1 text-base text-on-desk-soft" data-reveal style={{ "--i": 2 } as React.CSSProperties}>
+          <p className="mt-1 text-base text-cream-soft" data-reveal style={{ "--i": 2 } as React.CSSProperties}>
             {profile.languages[lang]}
           </p>
         </div>
 
         <div className="min-w-0 lg:pt-4">
-          <h3 className="font-cond text-2xl font-bold" data-reveal>
+          <h3 className="font-display text-2xl font-bold" data-reveal>
             {t.journey.timeline}
           </h3>
           <ol className="mt-6">
             {entries.map((e, i) => (
               <li
                 key={e.key}
-                className="grid grid-cols-[6.5rem_1fr] gap-x-6 py-5 even:bg-desk-3/40 sm:grid-cols-[8rem_1fr]"
+                className="grid grid-cols-[6.5rem_1fr] gap-x-6 border-b border-cream/10 py-5 sm:grid-cols-[8rem_1fr]"
                 data-reveal
                 style={{ "--i": Math.min(i, 4) } as React.CSSProperties}
               >
-                <p className="pl-3 font-cond text-2xl font-bold">{e.when}</p>
-                <div className="pr-3">
+                <p className="font-display text-2xl font-bold text-orange">{e.when}</p>
+                <div>
                   <p className="text-lg font-semibold">{e.title}</p>
-                  <p className="text-base text-on-desk-soft">{e.detail}</p>
+                  <p className="text-base text-cream-soft">{e.detail}</p>
                 </div>
               </li>
             ))}

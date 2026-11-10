@@ -1,160 +1,151 @@
 ---
 name: Portafolio Juan Diego Henao Quintero
-description: Un puente de vúmetros donde cada competencia se mide por sus pruebas públicas.
+description: Fichas de color retro sobre carbón; IA que responde con datos verificables.
 colors:
-  desk: "#16130f"
-  desk-raised: "#211c17"
-  desk-control: "#2c261f"
-  meter-face: "#e6e3dc"
-  meter-face-shade: "#d7d3ca"
-  ink: "#151412"
-  ink-soft: "#4a4339"
-  on-desk: "#e9e6e0"
-  on-desk-soft: "#b0aba1"
-  signal-red: "#b3261e"
-  signal-red-deep: "#8f1d17"
-  steel: "#8c949a"
+  carbon: "#1b1a19"
+  carbon-raised: "#242220"
+  carbon-control: "#302d2a"
+  cream: "#e8d8c9"
+  cream-field: "#dccab9"
+  cream-soft: "#b9aa9b"
+  ink: "#1b1a19"
+  ink-soft: "#5a4f46"
+  slate: "#4b607f"
+  slate-deep: "#2f3d52"
+  orange: "#f3701e"
+  orange-light: "#ff8a3d"
+  orange-ink: "#9a420e"
 typography:
   display:
-    fontFamily: "Barlow Condensed, Barlow, sans-serif"
-    fontSize: "clamp(3.4rem, 9.5vw, 9.25rem)"
-    fontWeight: 700
-    lineHeight: 0.92
-    letterSpacing: "-0.02em"
+    fontFamily: "Bricolage Grotesque, Barlow, sans-serif"
+    fontSize: "clamp(3.2rem, 6.6vw, 7rem)"
+    fontWeight: 800
+    lineHeight: 0.95
+    letterSpacing: "-0.03em"
   heading:
-    fontFamily: "Barlow Condensed, Barlow, sans-serif"
+    fontFamily: "Bricolage Grotesque, Barlow, sans-serif"
     fontSize: "4.5rem"
-    fontWeight: 700
-    lineHeight: 0.92
-    letterSpacing: "-0.02em"
+    fontWeight: 800
+    lineHeight: 0.95
+    letterSpacing: "-0.03em"
   label:
-    fontFamily: "Barlow Condensed, Barlow, sans-serif"
-    fontSize: "1.5rem"
-    fontWeight: 600
-    lineHeight: 1.25
-  lead:
-    fontFamily: "Barlow, system-ui, sans-serif"
+    fontFamily: "Bricolage Grotesque, Barlow, sans-serif"
     fontSize: "1.25rem"
-    fontWeight: 400
-    lineHeight: 1.375
+    fontWeight: 700
   body:
     fontFamily: "Barlow, system-ui, sans-serif"
     fontSize: "1.0625rem"
     fontWeight: 400
-    lineHeight: 1.55
+    lineHeight: 1.6
 rounded:
-  switch: "2px"
+  pill: "999px"
+  card: "1.5rem"
+  field: "1.25rem"
 spacing:
   gutter-phone: "20px"
   gutter-desk: "32px"
-  section-phone: "96px"
-  section-desk: "144px"
+  section-gap-phone: "96px"
+  section-gap-desk: "128px"
 components:
-  button-primary:
-    backgroundColor: "{colors.signal-red}"
-    textColor: "{colors.meter-face}"
+  button-accent:
+    backgroundColor: "{colors.orange}"
+    textColor: "{colors.ink}"
     typography: "{typography.label}"
-    rounded: "{rounded.switch}"
-    padding: "0 22px"
+    rounded: "{rounded.pill}"
     height: "48px"
-  button-primary-hover:
-    backgroundColor: "{colors.signal-red-deep}"
+    padding: "0 24px"
+  button-accent-hover:
+    backgroundColor: "{colors.orange-light}"
+  button-ink:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.cream}"
+    rounded: "{rounded.pill}"
+    height: "48px"
   button-quiet:
-    backgroundColor: "{colors.desk-control}"
-    textColor: "{colors.on-desk}"
-    rounded: "{rounded.switch}"
-    padding: "0 22px"
+    backgroundColor: "{colors.carbon-control}"
+    textColor: "{colors.cream}"
+    rounded: "{rounded.pill}"
     height: "48px"
-  button-quiet-hover:
-    backgroundColor: "{colors.meter-face}"
+  field-on-cream:
+    backgroundColor: "{colors.cream-field}"
     textColor: "{colors.ink}"
-  input-on-face:
-    backgroundColor: "{colors.meter-face-shade}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.switch}"
-    padding: "12px 16px"
-  input-on-desk:
-    backgroundColor: "{colors.desk-control}"
-    textColor: "{colors.on-desk}"
-    rounded: "{rounded.switch}"
-    padding: "12px 16px"
+    rounded: "{rounded.field}"
+    padding: "16px 20px"
 ---
 
 # Design System: Portafolio Juan Diego Henao Quintero
 
 ## Overview
 
-La página es una consola de estudio de grabación: un escritorio de nogal casi negro donde las superficies de trabajo son caras de vúmetro color hueso. Cada competencia es un canal cuya aguja cuenta pruebas públicas (proyectos, experiencia, logros, certificaciones), y el analizador de vacantes reconfigura el puente con un canal por requisito. El sistema no decora: mide. Lo que tiene evidencia pasa de cero y se marca en rojo; lo que no, se queda a la izquierda.
-
-Los capítulos alternan campo de escritorio (oscuro) y campo de medidor (hueso) con cortes duros, nunca degradados. El rojo está reservado: la acción principal y la zona «pasado de cero» de la escala.
+Retro americano sobre carbón, tomado de una referencia de paletas. **La paleta guía, no encajona**: la página es una sola superficie de carbón y el color llega como ambiente (resplandores de pizarra y naranja que se desvanecen sin bordes) y como acento (cifras, puntos, barras, la acción). No hay paneles de color ni tarjetas por sección; la estructura sale del espacio, la tipografía y filetes finos. Solo lo que es interfaz real (el chat, los fragmentos de proyecto, los campos) lleva contenedor.
 
 ## Colors
 
 ### Primary
-- **signal-red** `#b3261e`: la zona roja de la escala VU, la acción principal y el veredicto «con evidencia». Nunca como texto sobre el escritorio oscuro (contraste insuficiente); sí como fondo de botón con texto hueso (8.4:1) y como texto sobre hueso.
+- **orange** `#f3701e`: botón principal, cifras y énfasis sobre carbón (6.7:1). Nunca como texto sobre crema: ahí se usa **orange-ink** `#9a420e` (5:1).
+
+### Secondary
+- **slate** `#4b607f` → **slate-deep** `#2f3d52`: resplandores de ambiente (`wash-slate`), barras de nivel «parcial» y el punto de la segunda área de enfoque. Nunca como texto sobre carbón (2.9:1).
 
 ### Neutral
-- **desk** `#16130f` / **desk-raised** `#211c17` / **desk-control** `#2c261f`: el escritorio y sus escalones de tono para separar superficies sin líneas ni sombras.
-- **meter-face** `#e6e3dc` / **meter-face-shade** `#d7d3ca`: caras de medidor y capítulos claros (analizador, asistente).
-- **ink** `#151412`: arcos, numerales, agujas y texto sobre hueso.
-- **on-desk** `#e9e6e0` / **on-desk-soft** `#b0aba1`: texto sobre escritorio; el suave solo para notas secundarias (≥ 7:1).
+- **carbon** `#1b1a19` / **carbon-raised** `#242220` / **carbon-control** `#302d2a`: fondo, campos y chat, y controles.
+- **cream** `#e8d8c9` / **cream-field** `#dccab9`: texto principal, títulos y la burbuja del logo. **cream-soft** `#b9aa9b` es el texto secundario sobre carbón (7.6:1).
+- **ink** `#1b1a19` / **ink-soft** `#5a4f46`: texto sobre crema y naranja.
 
 ### Named Rules
-- **Pasado de cero.** El rojo significa «hay evidencia suficiente». Si algo es rojo, debe poder abrirse su prueba.
-- **Escalón, no línea.** Las superficies se separan por un paso de tono (desk → desk-raised → desk-control), nunca por bordes de 1px ni sombras.
+- **Un naranja por pantalla.** Si dos cosas compiten en naranja, una de ellas no es la acción.
+- **Color como ambiente, no como caja.** Las secciones alternan resplandores (`wash-slate` a la izquierda, `wash-orange` a la derecha) que llegan a transparente antes del borde: nunca se ve un corte.
+- **Degradados con propósito.** Resplandores de sección y del hero, y la línea naranja → crema → pizarra (progreso de lectura y puntaje). Nada de texto en degradado.
 
 ## Typography
 
-Una sola familia: Barlow, con su corte condensado para titulares, escalas y rótulos, como la rotulación de los equipos de estudio. Monoespaciada solo dentro de bloques de código reales de los fragmentos de proyecto.
-
-### Hierarchy
-- **Display** (hero y pie): Barlow Condensed 700, `clamp(3.4rem, 9.5vw, 9.25rem)`, interlineado 0.92, tracking −0.02em. El nombre en dos líneas.
-- **Heading** (títulos de sección): 48px en teléfono, 72px en escritorio. Dos líneas como máximo.
-- **Label** (subtítulos, botones, rótulos de canal): Barlow Condensed 600, 18–24px.
-- **Lead**: Barlow 20px. **Body**: Barlow 17–18px, interlineado 1.55. **Small**: 16px, nunca menos.
-
-### Named Rules
-- **Sin etiquetas pequeñas en mayúsculas.** Todo en minúscula de oración y a tamaño legible.
+**Bricolage Grotesque** (800/700) para titulares y rótulos: rotunda y con un punto retro. **Barlow** (400–600) para el texto: sobria y muy legible. Dos familias, cinco tamaños visibles: display, heading (72px), label (20–24px), body (17–20px) y small (14–16px).
 
 ## Layout
 
-Una cuadrícula de 90rem con márgenes iguales de 20px (teléfono) y 32px (desde 640px). Las secciones de contenido son dos columnas asimétricas `1fr / 1.15fr`: el título y el argumento a la izquierda, el instrumento o el contenido a la derecha. Separación entre secciones de 96px en teléfono y 128–144px en escritorio. El puente usa unidades enteras de medidor: 2, 4 u 8 canales por fila, nunca fracciones.
+Rejilla de 90rem con márgenes de 20px (teléfono) y 32px (≥640px), secciones a sangre completa separadas por 96–128px de espacio. Dos columnas asimétricas `1fr / 1.15fr` en escritorio y una en teléfono. Listas con filetes (`border-cream/10`) en lugar de tarjetas.
+
+Orden: Hero → Sobre mí → Mide tu vacante → Proyectos → frase → Trayectoria → Asistente → Contacto → pie.
 
 ## Elevation & Depth
 
-Plano. Sin sombras ni brillos. La profundidad sale del tono (escritorio, panel, control) y del recorte (`clip-path`) de los fragmentos al entrar.
+Plano. La profundidad sale de los resplandores. Sombra y desenfoque solo en la cabecera al desplazarse; anillo de 1px (`ring-cream/10`) en los campos y el chat.
 
 ## Shapes
 
-Esquinas rectas de 2px en botones y campos, como interruptores de consola. Las caras de medidor son rectángulos sin radio.
+Botones en píldora; campos y chat con 1rem; fragmentos de proyecto con 1.25rem. Las secciones no tienen forma propia.
 
 ## Components
 
-### Buttons
-- **Primario**: rojo con texto hueso, 48px de alto, Barlow Condensed 600. Hover más oscuro, `:active` a escala 0.97.
-- **Silencioso**: escalón de escritorio con texto hueso; en hover pasa a cara de medidor con tinta.
+### Cabecera
+Fija y **siempre visible**: no se esconde al hacer scroll. Sobre el hero es transparente; al bajar, una capa de fondo carbón al 94 % aparece por opacidad (300ms). Sin `backdrop-filter`: detrás pasa el resplandor animado del hero y desenfocarlo en cada cuadro es caro en móviles. Línea de progreso de lectura en degradado. En escritorio, cuatro enlaces con la sección activa resaltada, la acción «Mide tu vacante» y el botón de menú.
 
-### Inputs / Fields
-Sin borde: un escalón de tono (hueso oscurecido sobre campo claro, control sobre escritorio). Foco con contorno de 2px en tinta o rojo según el campo. Caret rojo.
+### Menú de hamburguesa
+Panel a pantalla completa que aparece por opacidad (320ms) con los enlaces escalonados (45ms). Sin clip-path ni desenfoques animados, para que sea fluido en cualquier equipo. `scrollbar-gutter: stable` evita el salto de la página al bloquear el scroll. Esc o un enlace lo cierran; el foco queda atrapado dentro y vuelve al botón.
 
-### Navigation
-Barra plana: nombre como marca, cuatro enlaces subrayados, cambio de idioma y una sola acción («Mide tu vacante»).
+### Logo
+**Respuesta citada** (elegida): burbuja de chat crema con «jd» y un superíndice naranja ¹ en la esquina. La respuesta lleva su fuente: el posicionamiento «IA que no inventa» hecho marca. Sobre fondos claros se invierte definiendo `--bubble` y `--bubble-text`. Las seis variantes (monograma, sello, cumbre, nevado, respuesta citada, cable aéreo) viven en `src/components/Logo.tsx`; `LOGO_VARIANT` elige la del sitio. El favicon (`src/app/icon.svg`) es la burbuja sobre carbón redondeado.
 
-### Vúmetro (componente insignia)
-SVG 200×140: cara hueso, arco negro de −20 a 0 y arco rojo de 0 a +3, numerales VU en Barlow Condensed, aguja negra con pivote abajo. La aguja gira desde el tope izquierdo con balística (leve sobrepaso y asentamiento) y tiembla menos de 1° solo mientras el puente está en pantalla. Escala no lineal como un medidor real. Con movimiento reducido, la aguja ya está en su valor.
+### Hero
+Nombre en dos líneas (la segunda en naranja), rol, frase y dos acciones. A la derecha, el logo grande con un halo naranja difuminado y las tres áreas de enfoque como lista tipográfica, cada una con un punto de la paleta.
 
-### Fragmentos de proyecto
-Pantallas de interfaz o API construidas en HTML (`data-ui`) en lugar de imágenes. Pueden llevar código monoespaciado. Los valores de ejemplo se rotulan «Datos de ejemplo».
+### Sobre mí
+Descripción condensada en dos párrafos, cifras en línea con filetes y, a la derecha, la foto en un **arco** (radio completo arriba, 1.5rem abajo) con duotono: la imagen en escala de grises con `mix-blend-mode: luminosity` sobre un degradado pizarra → naranja, un toque de luz cálida arriba y fundido inferior hacia la página. La foto vive en `public/images/profile/`.
+
+### Pie
+Marca, fecha de «última actualización» (la fecha de compilación, `BUILD_DATE` en `next.config.ts`, en hora de Colombia), navegación, contacto y «volver arriba».
+
+### Analizador
+Puntaje grande en naranja con barra en degradado; cada requisito en una fila con filete inferior, etiqueta de veredicto y barra de nivel (naranja con evidencia, pizarra parcial, crema suave brecha).
 
 ## Do's and Don'ts
 
 ### Do:
-- Medir antes que afirmar: cada nivel de aguja sale de pruebas enlazables.
-- Alternar capítulos escritorio/hueso con cortes duros.
+- Separar capítulos con espacio y resplandores, no con cajas.
 - Mantener el contenido visible sin JS y con movimiento reducido.
+- Verificar contraste al poner texto sobre pizarra o naranja.
 
 ### Don't:
-- No usar degradados, brillos, sombras en reposo ni vidrio.
-- No poner rojo como texto sobre el escritorio.
-- No usar etiquetas sobre los títulos (eyebrows), numeración 01/02 ni tarjetas idénticas con icono.
-- No inventar porcentajes de habilidad: la aguja cuenta pruebas, no autoestima.
+- No poner naranja como texto sobre crema.
+- No volver a encerrar secciones en paneles de color ni convertir listas en tarjetas.
+- No inventar cifras: las de «Sobre mí» salen del CV.
