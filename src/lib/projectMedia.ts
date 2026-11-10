@@ -40,3 +40,19 @@ export function projectImages(slug: string, title: string): ProjectImage[] {
       };
     });
 }
+
+/**
+ * Foto de perfil para «Sobre mí»: el primer archivo de imagen en `public/images/profile/`.
+ * Si no hay ninguno, la sección muestra el espacio reservado. Se lee en build.
+ */
+export function profilePhoto(): string | null {
+  const dir = join(process.cwd(), "public", "images", "profile");
+  try {
+    const file = readdirSync(dir)
+      .filter((f) => IMAGE_FILE.test(f))
+      .sort()[0];
+    return file ? `/images/profile/${encodeURIComponent(file)}` : null;
+  } catch {
+    return null;
+  }
+}

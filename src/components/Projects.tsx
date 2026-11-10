@@ -29,13 +29,13 @@ export function Projects({ lang, t }: { lang: Locale; t: Dictionary }) {
                 <h3 className="display text-5xl" data-reveal>
                   {p.title}
                 </h3>
-                <p className="mt-3 font-cond text-2xl font-semibold" data-reveal style={{ "--i": 1 } as React.CSSProperties}>
+                <p className="mt-3 font-display text-2xl font-semibold" data-reveal style={{ "--i": 1 } as React.CSSProperties}>
                   {p.tagline[lang]}
                 </p>
                 <p className="mt-4 max-w-xl text-lg" data-reveal style={{ "--i": 2 } as React.CSSProperties}>
                   {p.description[lang]}
                 </p>
-                <p className="mt-4 max-w-xl text-base text-on-desk-soft" data-reveal style={{ "--i": 3 } as React.CSSProperties}>
+                <p className="mt-4 max-w-xl text-base text-cream-soft" data-reveal style={{ "--i": 3 } as React.CSSProperties}>
                   {p.tags.join(" · ")}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3" data-reveal style={{ "--i": 4 } as React.CSSProperties}>

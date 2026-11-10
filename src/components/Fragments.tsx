@@ -4,34 +4,34 @@ import type { Locale } from "@/i18n/config";
 // Los valores numéricos son de ejemplo y se rotulan como tales en pantalla.
 
 function SampleTag({ text }: { text: string }) {
-  return <p className="mt-3 text-base text-on-desk-soft">{text}</p>;
+  return <p className="mt-3 text-base text-cream-soft">{text}</p>;
 }
 
 function KogniaFragment({ lang, sample }: { lang: Locale; sample: string }) {
   const es = lang === "es";
   return (
     <figure data-ui className="m-0">
-      <div className="bg-[#0e0d0b] p-5 text-on-desk">
-        <p className="font-cond text-lg font-semibold">{es ? "API en vivo" : "Live API"}</p>
+      <div className="rounded-[1.25rem] bg-carbon-2 p-5 text-cream">
+        <p className="font-display text-lg font-semibold">{es ? "API en vivo" : "Live API"}</p>
         <p className="mt-3 text-base">
           {es ? "«¿Cuántas IPS públicas hay en Antioquia?»" : "“How many public health providers are in Antioquia?”"}
         </p>
-        <pre className="mt-4 overflow-x-auto bg-desk-2 p-4 text-base leading-relaxed text-on-desk">
+        <pre className="mt-4 overflow-x-auto rounded-xl bg-carbon-3 p-4 text-base leading-relaxed text-cream">
           <code>{`SELECT count(DISTINCT c_digo_prestador)
 WHERE departamento = 'Antioquia'
   AND naturaleza = 'Pública'`}</code>
         </pre>
         <dl className="mt-4 grid grid-cols-3 gap-3 text-base">
           <div>
-            <dt className="text-on-desk-soft">{es ? "Fuente" : "Source"}</dt>
+            <dt className="text-cream-soft">{es ? "Fuente" : "Source"}</dt>
             <dd>datos.gov.co · REPS</dd>
           </div>
           <div>
-            <dt className="text-on-desk-soft">{es ? "Corte" : "Cut-off"}</dt>
+            <dt className="text-cream-soft">{es ? "Corte" : "Cut-off"}</dt>
             <dd>2022</dd>
           </div>
           <div>
-            <dt className="text-on-desk-soft">{es ? "Respuesta" : "Response"}</dt>
+            <dt className="text-cream-soft">{es ? "Respuesta" : "Response"}</dt>
             <dd>1 {es ? "fila" : "row"} · 412 ms</dd>
           </div>
         </dl>
@@ -46,7 +46,7 @@ function AlertaFragment({ lang, sample }: { lang: Locale; sample: string }) {
   return (
     <figure data-ui className="m-0">
       <div className="grid gap-4 sm:grid-cols-[1fr_0.9fr]">
-        <pre className="overflow-x-auto bg-[#0e0d0b] p-4 text-base leading-relaxed text-on-desk">
+        <pre className="overflow-x-auto rounded-[1.25rem] bg-carbon-2 p-4 text-base leading-relaxed text-cream">
           <code>{`GET /zonas-riesgo
 {
   "localidad": "Kennedy",
@@ -55,14 +55,14 @@ function AlertaFragment({ lang, sample }: { lang: Locale; sample: string }) {
   "anomalia_z": 2.4
 }`}</code>
         </pre>
-        <div className="flex flex-col justify-center bg-face p-4 text-ink">
-          <p className="font-cond text-lg font-bold">Alerta Ciudadana</p>
+        <div className="flex flex-col justify-center rounded-[1.25rem] bg-cream p-4 text-ink">
+          <p className="font-display text-lg font-bold">Alerta Ciudadana</p>
           <p className="mt-1 text-base">
             {es
               ? "Entraste a una zona de riesgo alto: Kennedy. Mantente atento."
               : "You entered a high-risk zone: Kennedy. Stay alert."}
           </p>
-          <p className="mt-2 text-base font-semibold text-red">{es ? "Notificación local · GPS" : "Local notification · GPS"}</p>
+          <p className="mt-2 text-base font-semibold text-orange-ink">{es ? "Notificación local · GPS" : "Local notification · GPS"}</p>
         </div>
       </div>
       <SampleTag text={sample} />
@@ -83,10 +83,10 @@ const BOARD = [
 ];
 
 const CELL_STYLE: Record<string, string> = {
-  "#": "bg-desk-3",
-  "*": "bg-red",
-  "·": "bg-face-2",
-  unit: "bg-face text-ink",
+  "#": "bg-carbon-3",
+  "*": "bg-orange",
+  "·": "bg-cream-2",
+  unit: "bg-cream text-ink",
 };
 
 function TacticalFragment({ lang }: { lang: Locale }) {
@@ -94,7 +94,7 @@ function TacticalFragment({ lang }: { lang: Locale }) {
   return (
     <figure data-ui className="m-0">
       <div
-        className="grid aspect-square max-w-sm grid-cols-8 gap-[3px] bg-[#0e0d0b] p-[3px]"
+        className="grid aspect-square max-w-sm grid-cols-8 gap-[3px] overflow-clip rounded-[1.25rem] bg-carbon-2 p-[3px]"
         role="img"
         aria-label={
           es
@@ -106,14 +106,14 @@ function TacticalFragment({ lang }: { lang: Locale }) {
           row.split("").map((cell, x) => (
             <span
               key={`${x}-${y}`}
-              className={`flex items-center justify-center font-cond text-lg font-bold ${CELL_STYLE[cell] ?? CELL_STYLE.unit}`}
+              className={`flex items-center justify-center font-display text-lg font-bold ${CELL_STYLE[cell] ?? CELL_STYLE.unit}`}
             >
               {cell === "A" || cell === "B" ? cell : ""}
             </span>
           )),
         )}
       </div>
-      <figcaption className="mt-3 text-base text-on-desk-soft">
+      <figcaption className="mt-3 text-base text-cream-soft">
         {es ? "Camino de A a B por búsqueda informada; los muros en gris." : "Path from A to B by informed search; walls in grey."}
       </figcaption>
     </figure>
@@ -127,8 +127,8 @@ function CuadernilloFragment({ lang, sample }: { lang: Locale; sample: string })
     : ["An inference from the text", "An explicit fact", "The author's opinion", "A false conclusion"];
   return (
     <figure data-ui className="m-0">
-      <div className="bg-face p-5 text-ink">
-        <p className="font-cond text-lg font-bold">{es ? "Pregunta de lectura crítica" : "Critical reading question"}</p>
+      <div className="rounded-[1.25rem] bg-cream p-5 text-ink">
+        <p className="font-display text-lg font-bold">{es ? "Pregunta de lectura crítica" : "Critical reading question"}</p>
         <p className="mt-2 text-base">
           {es
             ? "Según el párrafo anterior, la afirmación «el agua es un recurso limitado» corresponde a:"

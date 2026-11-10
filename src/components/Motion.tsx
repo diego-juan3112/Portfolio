@@ -29,6 +29,14 @@ export function Motion() {
     );
     targets.forEach((el) => io.observe(el));
 
+    // El resplandor animado del hero no consume GPU cuando ya no se ve
+    const glow = document.querySelector<HTMLElement>(".hero-glow");
+    const glowIo = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) delete (entry.target as HTMLElement).dataset.offscreen;
+      else (entry.target as HTMLElement).dataset.offscreen = "";
+    });
+    if (glow) glowIo.observe(glow);
+
     if (CSS.supports("animation-timeline: view()")) {
       document.querySelectorAll<HTMLElement>("[data-fill]:not(.is-filling)").forEach((el) => {
         const words = (el.textContent ?? "").trim().split(/\s+/);
@@ -42,7 +50,10 @@ export function Motion() {
       });
     }
 
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      glowIo.disconnect();
+    };
   }, []);
 
   return null;

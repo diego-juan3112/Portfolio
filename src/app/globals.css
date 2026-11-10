@@ -1,53 +1,60 @@
 @import "tailwindcss";
 
-/* Mundo: puente de vúmetros. Escritorio oscuro, caras marfil, tinta negra, un solo rojo. */
+/*
+ * Paleta «retro americano»: carbón de fondo, paneles crema y pizarra, un naranja para la acción.
+ * Contraste (WCAG): crema sobre carbón 12.5:1 · crema sobre pizarra profunda 7:1 · tinta sobre crema 12.5:1 ·
+ * naranja sobre carbón 6.7:1. El naranja nunca va como texto sobre crema (usa --orange-ink).
+ */
 :root {
-  --desk: #16130f;
-  --desk-2: #211c17;
-  --desk-3: #2c261f;
-  --face: #e6e3dc;
-  --face-2: #d7d3ca;
-  --ink: #151412;
-  --ink-soft: #4a4339;
-  --on-desk: #e9e6e0;
-  --on-desk-soft: #b0aba1;
-  --red: #b3261e;
-  --red-strong: #8f1d17;
-  --steel: #8c949a;
+  --carbon: #1b1a19;
+  --carbon-2: #242220;
+  --carbon-3: #302d2a;
+  --cream: #e8d8c9;
+  --cream-2: #dccab9;
+  --cream-soft: #b9aa9b;
+  --ink: #1b1a19;
+  --ink-soft: #5a4f46;
+  --slate: #4b607f;
+  --slate-deep: #2f3d52;
+  --orange: #f3701e;
+  --orange-light: #ff8a3d;
+  --orange-ink: #9a420e;
+
+  --grad-slate: linear-gradient(135deg, var(--slate) 0%, var(--slate-deep) 70%);
+  --grad-orange: linear-gradient(120deg, var(--orange) 0%, var(--orange-light) 100%);
+  --grad-line: linear-gradient(90deg, var(--orange) 0%, var(--cream) 50%, var(--slate) 100%);
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
-  --t-press: 140ms;
-  --t-hover: 180ms;
-  --t-ui: 240ms;
-  --t-reveal: 800ms;
-  --stagger-line: 90ms;
   --stagger-item: 70ms;
+  --header-h: 4.5rem;
 }
 
 @theme inline {
-  --color-desk: var(--desk);
-  --color-desk-2: var(--desk-2);
-  --color-desk-3: var(--desk-3);
-  --color-face: var(--face);
-  --color-face-2: var(--face-2);
+  --color-carbon: var(--carbon);
+  --color-carbon-2: var(--carbon-2);
+  --color-carbon-3: var(--carbon-3);
+  --color-cream: var(--cream);
+  --color-cream-2: var(--cream-2);
+  --color-cream-soft: var(--cream-soft);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
-  --color-on-desk: var(--on-desk);
-  --color-on-desk-soft: var(--on-desk-soft);
-  --color-red: var(--red);
-  --color-red-strong: var(--red-strong);
-  --color-steel: var(--steel);
+  --color-slate: var(--slate);
+  --color-slate-deep: var(--slate-deep);
+  --color-orange: var(--orange);
+  --color-orange-light: var(--orange-light);
+  --color-orange-ink: var(--orange-ink);
   --font-sans: var(--font-barlow), system-ui, sans-serif;
-  --font-cond: var(--font-barlow-cond), var(--font-barlow), sans-serif;
+  --font-display: var(--font-bricolage), var(--font-barlow), sans-serif;
 }
 
 html {
   color-scheme: dark;
-  scrollbar-color: var(--steel) var(--desk);
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--slate) var(--carbon);
+  scroll-padding-top: calc(var(--header-h) + 1rem);
 }
-/* Desplazamiento suave solo al navegar por anclas, no en el scroll programático */
 @media (prefers-reduced-motion: no-preference) {
   html:focus-within {
     scroll-behavior: smooth;
@@ -55,63 +62,143 @@ html {
 }
 
 body {
-  background: var(--desk);
-  color: var(--on-desk);
+  background: var(--carbon);
+  color: var(--cream);
   font-family: var(--font-sans);
   font-size: 1.0625rem;
-  line-height: 1.55;
-  font-variant-numeric: tabular-nums;
+  line-height: 1.6;
 }
 
 ::selection {
-  background: var(--red);
-  color: var(--face);
+  background: var(--orange);
+  color: var(--ink);
 }
-
 :focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--orange);
   outline-offset: 3px;
 }
-.on-face :focus-visible {
+.on-cream :focus-visible,
+.on-orange :focus-visible {
   outline-color: var(--ink);
 }
-
 a {
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.22em;
   text-decoration-thickness: 0.07em;
 }
 
-/* Capítulo marfil: la cara del medidor como campo de sección */
-.on-face {
-  background: var(--face);
-  color: var(--ink);
-  color-scheme: light;
-}
-
+/* Componentes en su capa: así las utilidades de Tailwind (hidden, sm:…) siempre les ganan */
+@layer components {
 .display {
-  font-family: var(--font-cond);
-  font-weight: 700;
-  line-height: 0.92;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
 }
 
-/* ---------- Botones: interruptores de consola, esquinas rectas ---------- */
+/* ---------- Ambientes ----------
+ * La página es una sola superficie de carbón. El color llega como resplandores que se desvanecen
+ * a transparente antes de los bordes de la sección: no hay cajas ni cortes visibles.
+ */
+.wash-slate,
+.wash-orange,
+.hero-glow {
+  position: relative;
+  isolation: isolate;
+}
+.wash-slate::before,
+.wash-orange::before,
+.hero-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.wash-slate::before {
+  background: radial-gradient(55% 45% at 0% 50%, color-mix(in oklab, var(--slate) 38%, transparent), transparent 72%);
+}
+.wash-orange::before {
+  background: radial-gradient(50% 42% at 100% 50%, color-mix(in oklab, var(--orange) 16%, transparent), transparent 72%);
+}
+.hero-glow {
+  overflow: clip;
+}
+.hero-glow::before {
+  inset: -10% -10% 0;
+  background:
+    radial-gradient(40% 45% at 78% 30%, color-mix(in oklab, var(--slate) 60%, transparent), transparent 70%),
+    radial-gradient(38% 42% at 10% 70%, color-mix(in oklab, var(--orange) 22%, transparent), transparent 70%);
+  /* Fundido inferior: la luz llega a transparente antes del borde, sin línea de corte */
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-glow::before {
+    animation: glow-drift 22s ease-in-out infinite alternate;
+  }
+  .hero-glow[data-offscreen]::before {
+    animation-play-state: paused;
+  }
+}
+@keyframes glow-drift {
+  to {
+    transform: translate3d(-4%, 3%, 0) scale(1.08);
+  }
+}
+
+/* Arco de la foto de perfil: forma retro (no una caja) que se funde con la página por abajo */
+.photo-arch {
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 26rem);
+  aspect-ratio: 4 / 5;
+  border-radius: 999px 999px 1.5rem 1.5rem;
+  overflow: clip;
+  background: linear-gradient(170deg, var(--slate) 0%, var(--slate-deep) 55%, color-mix(in oklab, var(--orange) 65%, var(--slate-deep)) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+}
+/* Duotono: la foto aporta la luminancia y el degradado del arco aporta el color */
+.photo-arch__img {
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.08) brightness(1.05);
+  mix-blend-mode: luminosity;
+}
+/* Toque de luz cálida arriba a la derecha */
+.photo-arch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(55% 35% at 80% 12%, color-mix(in oklab, var(--orange) 35%, transparent), transparent 70%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Línea divisoria en degradado entre secciones */
+.rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--cream) 22%, transparent) 20%, color-mix(in oklab, var(--cream) 22%, transparent) 80%, transparent);
+}
+
+/* ---------- Botones ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   min-height: 3rem;
-  padding: 0 1.4rem;
-  font-family: var(--font-cond);
-  font-weight: 600;
-  font-size: 1.125rem;
-  letter-spacing: 0.01em;
-  border-radius: 2px;
+  padding: 0 1.5rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
   transition:
-    transform var(--t-press) var(--ease-out),
-    background-color var(--t-hover) ease,
-    color var(--t-hover) ease;
+    transform 140ms var(--ease-out),
+    background-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease;
 }
 .btn:active {
   transform: scale(0.97);
@@ -120,27 +207,28 @@ a {
   opacity: 0.55;
   cursor: progress;
 }
-.btn--red {
-  background: var(--red);
-  color: var(--face);
+.btn--accent {
+  background: var(--orange);
+  color: var(--ink);
 }
 .btn--ink {
   background: var(--ink);
-  color: var(--face);
+  color: var(--cream);
 }
 .btn--quiet {
-  background: var(--desk-3);
-  color: var(--on-desk);
+  background: var(--carbon-3);
+  color: var(--cream);
 }
 @media (hover: hover) and (pointer: fine) {
-  .btn--red:hover {
-    background: var(--red-strong);
+  .btn--accent:hover {
+    background: var(--orange-light);
+    box-shadow: 0 8px 24px -8px color-mix(in oklab, var(--orange) 70%, transparent);
   }
   .btn--ink:hover {
-    background: var(--ink-soft);
+    background: var(--slate-deep);
   }
   .btn--quiet:hover {
-    background: var(--face);
+    background: var(--cream);
     color: var(--ink);
   }
   .link:hover {
@@ -150,113 +238,135 @@ a {
 .link {
   text-decoration: underline;
   text-decoration-color: color-mix(in oklab, currentColor 35%, transparent);
-  transition: text-decoration-color var(--t-hover) ease;
+  transition: text-decoration-color 180ms ease;
 }
 
-/* ---------- Vúmetro ---------- */
-.meter {
-  display: block;
-  width: 100%;
-  height: auto;
+/* ---------- Cabecera ----------
+ * Siempre visible. Al bajar, solo cambia el fondo (opacidad de una capa), sin moverse ni esconderse.
+ */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  height: var(--header-h);
 }
-.meter__face {
-  fill: var(--face);
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* Sin backdrop-filter: desenfocar lo que pasa detrás (el resplandor animado del hero) obligaba a
+     repetir el desenfoque en cada cuadro y triplicaba las tareas largas en móvil. Un fondo casi opaco
+     se ve prácticamente igual y es gratis. */
+  background: color-mix(in oklab, var(--carbon) 94%, transparent);
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--cream) 8%, transparent);
+  opacity: 0;
+  transition: opacity 300ms ease;
 }
-.meter__base {
-  fill: var(--face-2);
+.site-header[data-scrolled="true"]::before {
+  opacity: 1;
 }
-.meter__arc {
-  fill: none;
-  stroke: var(--ink);
-  stroke-width: 2;
+/* Con el menú abierto la cabecera se funde con él */
+.site-header[data-menu="open"]::before {
+  opacity: 0;
 }
-.meter__arc--red {
-  stroke: var(--red);
-  stroke-width: 5;
-}
-.meter__tick line {
-  stroke: var(--ink);
-  stroke-width: 1.6;
-}
-.meter__tick text {
-  fill: var(--ink);
-  font-family: var(--font-cond);
-  font-weight: 600;
-  font-size: 11px;
-}
-.meter__tick--red line,
-.meter__tick--red text {
-  stroke: var(--red);
-  fill: var(--red);
-  stroke-width: 1.6;
-}
-.meter__tick--red text {
-  stroke: none;
-}
-.meter__vu {
-  fill: var(--ink);
-  font-family: var(--font-cond);
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: 0.04em;
-}
-.meter__needle {
-  transform-box: view-box;
-  transform-origin: 100px 132px;
-  transform: rotate(var(--angle));
-}
-.meter__jitter {
-  transform-box: view-box;
-  transform-origin: 100px 132px;
-}
-.meter__needle line {
-  stroke: var(--ink);
-  stroke-width: 2.4;
-  stroke-linecap: round;
+/* Barra de progreso de lectura en degradado */
+.site-header__progress {
+  position: absolute;
+  inset: auto 0 0;
+  height: 3px;
+  background: var(--grad-line);
+  transform-origin: left;
+  transform: scaleX(var(--progress, 0));
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  /* Las agujas descansan en el tope izquierdo hasta que el puente se enciende */
-  .js .bridge:not(.is-live) .meter__needle {
-    transform: rotate(-48deg);
-  }
-  .js .bridge.is-live .meter__needle {
-    animation: needle-swing 1300ms var(--ease-out) var(--delay, 0ms) both;
-  }
-  /* Balística VU: la aguja tiene masa, pasa un poco y se asienta */
-  @keyframes needle-swing {
-    0% {
-      transform: rotate(-48deg);
-    }
-    55% {
-      transform: rotate(calc(var(--angle) + 4deg));
-    }
-    78% {
-      transform: rotate(calc(var(--angle) - 1.2deg));
-    }
-    100% {
-      transform: rotate(var(--angle));
-    }
-  }
-  /* Señal viva: temblor mínimo, solo mientras el puente está a la vista */
-  .bridge.is-live.is-visible .meter__jitter {
-    animation: needle-tremble 2.6s ease-in-out infinite;
-    animation-delay: calc(1400ms + var(--delay, 0ms));
-  }
-  @keyframes needle-tremble {
-    0%,
-    100% {
-      transform: rotate(0deg);
-    }
-    20% {
-      transform: rotate(0.9deg);
-    }
-    45% {
-      transform: rotate(-0.6deg);
-    }
-    70% {
-      transform: rotate(0.5deg);
-    }
+/* ---------- Menú de hamburguesa ---------- */
+.burger {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: var(--carbon-3);
+  color: var(--cream);
+  transition: background-color 200ms ease;
+}
+.burger span {
+  position: absolute;
+  left: 50%;
+  width: 1.25rem;
+  height: 2px;
+  margin-left: -0.625rem;
+  border-radius: 2px;
+  background: currentColor;
+  transition:
+    transform 300ms var(--ease-out),
+    opacity 200ms ease;
+}
+.burger span:nth-child(1) {
+  top: calc(50% - 6px);
+}
+.burger span:nth-child(2) {
+  top: calc(50% - 1px);
+}
+.burger span:nth-child(3) {
+  top: calc(50% + 4px);
+}
+.burger[aria-expanded="true"] {
+  background: var(--orange);
+  color: var(--ink);
+}
+.burger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+.burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.burger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  background:
+    radial-gradient(60% 50% at 85% 10%, color-mix(in oklab, var(--slate) 45%, transparent), transparent 70%),
+    var(--carbon);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 260ms ease,
+    visibility 0s linear 260ms;
+}
+.menu[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 320ms ease,
+    visibility 0s;
+}
+.menu__item {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+.menu[data-open="true"] .menu__item {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 420ms var(--ease-out),
+    transform 520ms var(--ease-out);
+  transition-delay: calc(80ms + var(--i, 0) * 45ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu,
+  .menu[data-open="true"],
+  .menu__item,
+  .menu[data-open="true"] .menu__item {
+    transition: none;
+    transform: none;
   }
 }
 
@@ -289,37 +399,39 @@ a {
 .carousel__frame {
   position: relative;
   aspect-ratio: 16 / 10;
-  background: #0e0d0b;
+  border-radius: 1.25rem;
+  background: var(--carbon-2);
   overflow: clip;
 }
 .carousel__frame img {
   pointer-events: none;
 }
+}
 
 /* ---------- Movimiento de página ---------- */
 .lines .line {
   display: block;
-  overflow: clip;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
 }
 .lines [data-line] {
   display: block;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .js .lines [data-line] {
-    transform: translateY(105%);
-    animation: line-up 900ms var(--ease-expo) forwards;
-    animation-delay: calc(var(--i) * 110ms + 120ms);
+/* Los estados ocultos solo aplican si el navegador ejecuta JS (scripting: enabled) y no pide
+   movimiento reducido: sin JS, o en navegadores sin soporte de la consulta, todo se ve en su estado final. */
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  /* El titular es el LCP: se pinta en el primer cuadro y solo se asienta unos píxeles.
+     Ocultarlo tras una máscara retrasaba el LCP ~2.3 s en móvil. */
+  .lines [data-line] {
+    animation: line-settle 800ms var(--ease-expo) both;
+    animation-delay: calc(var(--i) * 90ms);
   }
-  .js [data-load] {
+  [data-load] {
     opacity: 0;
     transform: translateY(12px);
     animation: load-rise 500ms var(--ease-out) forwards;
     animation-delay: var(--d, 400ms);
   }
-  .js [data-reveal] {
+  [data-reveal] {
     opacity: 0;
     transform: translateY(24px);
     transition:
@@ -327,36 +439,43 @@ a {
       transform 900ms var(--ease-out);
     transition-delay: calc(var(--i, 0) * var(--stagger-item));
   }
-  .js [data-reveal].is-in {
+  [data-reveal].is-in {
     opacity: 1;
     transform: none;
   }
   /* El contenedor observado no se recorta (el observador lo ve); se recorta su contenido */
-  .js [data-wipe] > * {
-    clip-path: inset(0 0 100% 0);
+  [data-wipe] > * {
+    clip-path: inset(0 0 100% 0 round 1.25rem);
     transition: clip-path 1100ms var(--ease-in-out);
   }
-  .js [data-wipe].is-in > * {
-    clip-path: inset(0);
+  [data-wipe].is-in > * {
+    clip-path: inset(0 round 1.25rem);
   }
   @supports (animation-timeline: view()) {
     .is-filling > span {
-      color: color-mix(in oklab, var(--fill) 45%, transparent);
+      display: inline-block;
+      opacity: 0.45;
       animation: ink-fill linear both;
       animation-timeline: view();
       animation-range: cover 20% cover 45%;
     }
   }
-  .js .result-row {
+  .result-row {
     opacity: 0;
     transform: translateY(16px);
     animation: load-rise 600ms var(--ease-out) forwards;
     animation-delay: calc(var(--i) * var(--stagger-item));
   }
+  /* Barras del analizador: crecen desde cero */
+  .level-bar > i {
+    transform-origin: left;
+    animation: bar-grow 900ms var(--ease-expo) both;
+    animation-delay: calc(200ms + var(--i, 0) * var(--stagger-item));
+  }
 }
-@keyframes line-up {
-  to {
-    transform: none;
+@keyframes line-settle {
+  from {
+    transform: translateY(0.18em);
   }
 }
 @keyframes load-rise {
@@ -367,11 +486,16 @@ a {
 }
 @keyframes ink-fill {
   to {
-    color: var(--fill);
+    opacity: 1;
+  }
+}
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
   }
 }
 [data-fill] {
-  --fill: var(--on-desk);
+  --fill: var(--cream);
   color: var(--fill);
 }
 

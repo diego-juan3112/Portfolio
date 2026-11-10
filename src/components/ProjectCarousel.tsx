@@ -155,7 +155,7 @@ export function ProjectCarousel({ title, images, labels, children }: Props) {
             <path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" strokeWidth="2" />
           </svg>
         </button>
-        <p className="text-base text-on-desk-soft" aria-live="polite">
+        <p className="text-base text-cream-soft" aria-live="polite">
           {labels.count.replace("{i}", String(index + 1)).replace("{n}", String(total))}
         </p>
       </div>

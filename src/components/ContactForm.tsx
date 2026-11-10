@@ -6,8 +6,8 @@ import { errorMessage, type Dictionary } from "@/i18n/dictionaries";
 type Status = { kind: "idle" | "sending" | "sent" } | { kind: "error"; message: string };
 
 const field =
-  "mt-2 block w-full rounded-[2px] bg-desk-3 px-4 py-3 text-lg text-on-desk caret-red outline-none focus-visible:outline-2 focus-visible:outline-red";
-const label = "font-cond text-lg font-semibold";
+  "mt-2 block w-full rounded-2xl bg-carbon-2 px-5 py-3 text-lg text-cream caret-orange outline-none ring-1 ring-cream/10 transition-shadow focus-visible:ring-2 focus-visible:ring-orange";
+const label = "font-display text-lg font-bold";
 
 export function ContactForm({ t }: { t: Dictionary["contact"] }) {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
@@ -68,7 +68,7 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
       {/* Honeypot: invisible para personas, los bots lo rellenan */}
       <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
       <div className="flex flex-wrap items-center gap-5">
-        <button type="submit" disabled={status.kind === "sending"} className="btn btn--red">
+        <button type="submit" disabled={status.kind === "sending"} className="btn btn--accent">
           {status.kind === "sending" ? t.sending : t.send}
         </button>
         <p role="status" aria-live="polite" className="text-lg">
